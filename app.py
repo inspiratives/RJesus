@@ -1,6 +1,6 @@
 import streamlit as st
 
-
+st.set_page_config(page_title='리딩지저스', page_icon='📖', initial_sidebar_state='collapsed')
 # st.title('리딩지저스')
 
 # read 'url_list.csv'
