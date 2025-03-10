@@ -9,7 +9,7 @@ url_list = pd.read_csv('url_list.csv')
 
 # get today date (yyyy-mm-dd)
 import datetime
-today = datetime.datetime.now() + datetime.timedelta(days=1)
+today = datetime.datetime.now()
 today = today.strftime('%Y-%m-%d')
 
 # get today data from url_list
