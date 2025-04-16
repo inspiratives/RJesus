@@ -1,5 +1,4 @@
 import streamlit as st
-from datetime import datetime
 
 st.set_page_config(page_title='리딩지저스', page_icon='📖', initial_sidebar_state='collapsed')
 # st.title('리딩지저스')
@@ -7,7 +6,11 @@ st.set_page_config(page_title='리딩지저스', page_icon='📖', initial_sideb
 # initialize session_state
 if 'date' not in st.session_state:
     # get today date (yyyy-mm-dd)
-    st.session_state['date'] = datetime.now()
+    # tz = timezone('Asia/Seoul')
+    from datetime import datetime
+    from pytz import timezone
+    tz = timezone('Asia/Seoul')
+    st.session_state['date'] = datetime.now(tz=tz)
 if 'url_list' not in st.session_state:
     import pandas as pd
     st.session_state['url_list'] = pd.read_csv('url_list.csv')
