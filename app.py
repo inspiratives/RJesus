@@ -51,9 +51,24 @@ def get_date_selection(date):
     return f'{date} | {title}'
     
 C = [f'{a} | {b}' for a, b in zip(A, B)]
-selected_date = st.selectbox('날짜', A, key='selected', format_func=get_date_selection, index=A.index(date) if date in A else None, placeholder=date, label_visibility='collapsed')
-if selected_date:
-    date = selected_date.split(' | ')[0]
+with st.popover(get_date_selection(date), use_container_width=True, icon="📅"):
+    with st.container(height=212, border=False):
+        for i in range(0, len(C)):
+            if A[i] == date:
+                # scroll and focus here              
+                st.button(C[i], key=f'button_{i}', use_container_width=True, type='primary')
+            else:
+                if st.button(C[i], key=f'button_{i}', use_container_width=True):
+                    from datetime import datetime
+                    st.session_state.update({'date': datetime.strptime(A[i], '%Y-%m-%d')})
+                    date = A[i]
+                    st.rerun()
+            
+    
+        
+# selected_date = st.selectbox('날짜', A, key='selected', format_func=get_date_selection, index=A.index(date) if date in A else None, placeholder=date, label_visibility='collapsed')
+# if selected_date:
+#     date = selected_date.split(' | ')[0]
 
 # progress
 today_data = st.session_state['url_list'][st.session_state['url_list']['date'] == date]
